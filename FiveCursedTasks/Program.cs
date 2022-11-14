@@ -4,13 +4,18 @@
 // 2) Задайте прямоугольный двумерный массив.
 // Напишите программу, которая будет находить
 // строку с наименьшей суммой элементов.
+// 3) Задайте две матрицы. Напишите программу,
+// которая будет находить произведение двух матриц.
 
-int[,] materDei = GetRandomMatrix(5, 5, -10, 10);
-PrintMatrix(materDei);
-SortMatrix(materDei);
-PrintMatrix(materDei);
-int min = GetMinSum(materDei);
-MinRow(materDei);
+int[,] matrixA = GetRandomMatrix(5, 4, -10, 10);
+PrintMatrix(matrixA);
+SortMatrix(matrixA);
+PrintMatrix(matrixA);
+int min = GetMinSum(matrixA);
+MinRow(matrixA);
+int[,] matrixB = GetRandomMatrix(5, 2, -10, 10);
+PrintMatrix(MultiMatrix(matrixA, matrixB));
+
 
 
 int[,] GetRandomMatrix(int rows, int columns, int minValue, int maxValue)
@@ -99,3 +104,22 @@ void MinRow(int[,] matr)
     }
 }
 
+int[,] MultiMatrix(int[,] matr1, int[,] matr2)
+
+{
+    Console.WriteLine("Произведение матриц");
+    int[,] matr3 = new int[matr1.GetLength(0), matr2.GetLength(1)];
+    for (int i = 0; i < matr1.GetLength(0); i++)
+    {
+        for (int k = 0; k < matr2.GetLength(1); k++)
+        {
+            int sum = 0;
+            for (int j = 0; j < matr1.GetLength(1); j++)
+            {
+                sum = sum + matr1[i, j];
+            }
+            matr3[i, k] = sum * matr2[i, k];
+        }
+    }
+    return matr3;
+}
