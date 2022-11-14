@@ -3,8 +3,12 @@
 // элементы каждой строки двумерного массива.
 
 int[,] materDei = GetRandomMatrix(5, 5, -10, 10);
+Console.WriteLine("Несортированная матрица");
+Console.WriteLine();
 PrintMatrix(materDei);
 SortMatrix(materDei);
+Console.WriteLine();
+Console.WriteLine("Сортированная матрица");
 PrintMatrix(materDei);
 
 int[,] GetRandomMatrix(int rows, int columns, int minValue, int maxValue)
@@ -27,12 +31,16 @@ int[,] SortMatrix(int[,] matr)
     {
         for (int j = 0; j < matr.GetLength(1); j++)
         {
-            int temp = matr[i, j];
-            if (matr[i, j] < matr[i, j + 1])
+            for (int k = j + 1; k < matr.GetLength(1); k++)
             {
-                matr[i, j] = matr[i, j + 1];
-                matr[i, j + 1] = temp;
+                if (matr[i, j] < matr[i, k])
+                {
+                    int temp = matr[i, j];
+                    matr[i, j] = matr[i, k];
+                    matr[i, k] = temp;
+                }
             }
+
         }
     }
     return matr;
@@ -41,7 +49,6 @@ int[,] SortMatrix(int[,] matr)
 
 void PrintMatrix(int[,] matr)
 {
-    Console.WriteLine("Матрица целочисленных готова");
     for (int i = 0; i < matr.GetLength(0); i++)
     {
         for (int j = 0; j < matr.GetLength(1); j++)
