@@ -10,6 +10,7 @@ SortMatrix(materDei);
 Console.WriteLine();
 Console.WriteLine("Сортированная матрица");
 PrintMatrix(materDei);
+GetMaxSum(materDei);
 
 int[,] GetRandomMatrix(int rows, int columns, int minValue, int maxValue)
 {
@@ -59,4 +60,26 @@ void PrintMatrix(int[,] matr)
     }
 }
 
+
+// 2) Задайте прямоугольный двумерный массив.
+// Напишите программу, которая будет находить
+// строку с наименьшей суммой элементов.
+
+void GetMaxSum(int[,] matr)
+{
+    int tempMax = 0;
+    for (int i = 0; i < matr.GetLength(0); i++)
+    {
+        int sum = 0;
+        for (int j = 0; j < matr.GetLength(1); j++)
+        {
+            sum = sum + matr[i, j];
+        }
+        Console.WriteLine();
+        Console.WriteLine($"Сумма чисел строки = {sum}");
+        Console.WriteLine();
+        if (sum > tempMax) tempMax = sum;
+    }
+    Console.WriteLine($"Максимальная сумма = {tempMax}");
+}
 
