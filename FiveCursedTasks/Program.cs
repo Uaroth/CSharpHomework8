@@ -7,14 +7,17 @@
 // 3) Задайте две матрицы. Напишите программу,
 // которая будет находить произведение двух матриц.
 
-int[,] matrixA = GetRandomMatrix(5, 4, -10, 10);
+int[,] matrixA = GetRandomMatrix(2, 2, -10, 10);
 PrintMatrix(matrixA);
 SortMatrix(matrixA);
 PrintMatrix(matrixA);
 int min = GetMinSum(matrixA);
 MinRow(matrixA);
-int[,] matrixB = GetRandomMatrix(5, 2, -10, 10);
+int[,] matrixB = GetRandomMatrix(2, 2, -10, 10);
+Console.WriteLine("Умножить на матрицу");
+PrintMatrix(matrixB);
 PrintMatrix(MultiMatrix(matrixA, matrixB));
+PrintMatrix(TestMult(matrixA, matrixB));
 
 
 
@@ -113,13 +116,40 @@ int[,] MultiMatrix(int[,] matr1, int[,] matr2)
     {
         for (int k = 0; k < matr2.GetLength(1); k++)
         {
+            int mult = 0;
             int sum = 0;
-            for (int j = 0; j < matr1.GetLength(1); j++)
+            for (int j = 0; j < matr1.GetLength(1)-1; j++)
             {
-                sum = sum + matr1[i, j];
+                for (int h = 0; h < matr2.GetLength(0)-1; h++)
+                {
+                    mult = matr1[i, j++] * matr2[h++, k];
+                }
+                sum = sum + mult;
             }
-            matr3[i, k] = sum * matr2[i, k];
+            matr3[i, k] = sum;
         }
     }
     return matr3;
 }
+
+int[,] TestMult(int[,] matr1, int[,] matr2)
+{
+    Console.WriteLine();
+    Console.WriteLine("Тест показал");
+    int[,] matr3 = new int[matr1.GetLength(0), matr2.GetLength(1)];
+    for (int i = 0; i < matr1.GetLength(0); i++)
+    {
+        for (int j = 0; j < matr2.GetLength(1); j++)
+        {
+            int mult = 0;
+            for (int k = 0; k < matr2.GetLength(1); k++)
+            {
+                mult = matr1[i, j + i] * matr2[i + j, j];
+            }
+            matr3[i, j] = matr3[i, j] + mult;
+        }
+    }
+    return matr3;
+}
+
+// matr3 [i,j] = (matr1 [i,j] * matr2 [i,j]) +
