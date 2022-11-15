@@ -11,6 +11,11 @@
 // построчно выводить массив, добавляя индексы каждого элемента.
 // 5) Напишите программу, которая заполнит спирально
 // массив 4 на 4.
+// Сделал примитивизм и позор, но с учётом наступающего дэдлайна
+// наступающего дэдлайна - грамотное распоряжение временем.
+// Сутками разбирался с произведением и трёхмерным массивом,
+// тут ничего не успеваю придумать, зато работает)
+
 
 int[,] matrixA = GetRandomMatrix(3, 4, -10, 10);
 PrintMatrix(matrixA);
@@ -24,8 +29,10 @@ PrintMatrix(matrixB);
 PrintMatrix(MultiMatrix(matrixA, matrixB));
 int[,,] matrixC = Get3DMatrix(2, 2, 2, 10, 99);
 Print3DMatrix(matrixC);
-int [,] matrixD = GetRandomMatrix(4, 4, 1, 16);
+int[,] matrixD = GetRandomMatrix(4, 4, 1, 16);
 PrintMatrix(matrixD);
+Console.WriteLine("Спиральный квадрат");
+PrintMatrix(SpiralFourMatrix(matrixD));
 
 
 
@@ -72,56 +79,18 @@ int[,] SortMatrix(int[,] matr)
 
 
 
-void SpiralFourMatrix(int[,] matr) // Примитивизм и позор, но с учётом наступающего дэдлайна
-{                                  // наступающего дэдлайна - грамотное распоряжение временем.
-    matr = SortMatrix(matr);       // Сутками разбирался с произведением и трёхмерным массивом,
-                                   // тут ничего не успеваю придумать, зато работает)
-    int temp = matr[1,3];
-    matr[1,3] = matr[1,0];
-    matr [1,0] = temp;
-
-    temp = matr[2,3];
-    matr[2,3] = matr[1,1];
-    matr [1,1] = temp;
-
-    temp = matr[3,3];
-    matr[3,3] = matr[1,2];
-    matr [1,2] = temp;
-
-    temp = matr[1,0];
-    matr[1,0] = matr[3,2];
-    matr [3,2] = temp;
-
-    temp = matr[2,0];
-    matr[2,0] = matr[3,1];
-    matr [3,1] = temp;
-
-    temp = matr[2,1];
-    matr[2,1] = matr[3,0];
-    matr [3,0] = temp;
-
-    temp = matr[2,2];
-    matr[2,2] = matr[2,0];
-    matr [2,0] = temp;
-
-    temp = matr[1,1];
-    matr[1,1] = matr[1,0];
-    matr [1,0] = temp;
-
-    temp = matr[2,1];
-    matr[2,1] = matr[1,1];
-    matr [1,1] = temp; //13
-
-    temp = matr[2,2];
-    matr[2,2] = matr[1,2];
-    matr [1,2] = temp;
-
-    temp = matr[2,1];
-    matr[2,1] = matr[2,2];
-    matr [2,2] = temp;
-
+int[,] SpiralFourMatrix(int rows, int columns)
+{
+    int[,] matr = new int[4, 4];
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < columns; j++)
+        {
+            
+        }
+    }
+    return matr;
 }
-
 
 void PrintMatrix(int[,] matr)
 {
