@@ -20,7 +20,7 @@ int[,] matrixB = GetRandomMatrix(3, 4, -10, 10);
 Console.WriteLine("Умножить на матрицу");
 PrintMatrix(matrixB);
 PrintMatrix(MultiMatrix(matrixA, matrixB));
-int[,,] matrixC = Get3DMatrix(2, 2, 2, 10, 100);
+int[,,] matrixC = Get3DMatrix(3, 3, 2, 10, 100);
 Print3DMatrix(matrixC);
 matrixC = SortUniqueMatrix(matrixC);
 Print3DMatrix(matrixC);
@@ -169,23 +169,34 @@ int[,,] Get3DMatrix(int rows, int columns, int spaces, int minValue, int maxValu
 int[,,] SortUniqueMatrix(int[,,] matr)
 {
 
-    int x = 0;
-    int y = 0;
-    int z = 0;
+    int d = 0;
+    int t = 0;
+    int p = 0;
+    int temp = matr[d, t, p];
+    while (temp < matr[matr.GetLength(0) - 1, matr.GetLength(1) - 1, matr.GetLength(2) - 1])
+    { 
+        Console.WriteLine($"Temp {temp}");
+        for (int x = 0; x < matr.GetLength(0); x++)
+        {
 
-    int temp = matr[x, y, z];
-
-    for ( x = 0; x < matr.GetLength(0); x++)
-    {
-        for (y = 0; y < matr.GetLength(1); y++)
-        {            
-            for (z = 0; z < matr.GetLength(2); z++)
+            for (int y = 0; y < matr.GetLength(1); y++)
             {
-                if (temp == matr[x,y,z]) matr[x,y,z] = new Random().Next(10, 100);      
+
+                for (int z = 0; z < matr.GetLength(2); z++)
+                {
+                    if (temp == matr[x, y, z])
+                    {
+                        matr[x, y, z] = new Random().Next(10, 100);
+                    }
+                    p++;
+                }
+
+
             }
-            Console.WriteLine($"Тэмп {temp}");
+
         }
     }
+
     return matr;
 }
 
