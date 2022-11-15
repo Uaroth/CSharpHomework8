@@ -152,20 +152,28 @@ int[,,] Get3DMatrix(int rows, int columns, int spaces, int minValue, int maxValu
     Console.WriteLine();
     int[,,] matrix = new int[rows, columns, spaces];
     int count = 1;
-    matrix[0, 0, 0] = new Random().Next(minValue, maxValue + 1);
-
-    for (int x = 0; x < rows; x++)
+    
+    int x = 0;
+    int y = 0;
+    int z = 0;
+    matrix[x, y, z] = new Random().Next(minValue, maxValue + 1);
+    int temp = matrix[x, y, z];
+    int sum = 0;
+    for (; x < rows; x++)
     {
-        for (int y = 0; y < columns; y++)
+        for (; y < columns; y++)
         {
-            for (int z = 0; z < spaces; z++)
+            matrix[x, y, z] = temp+step;
+            for (; z < spaces; z++)
             {
-                if (matrix[x, y, z] + step < maxValue)
-                {
-                    matrix[x, y, z] = matrix[x, y, z] + step;
-                    count++;
-                }
-                else matrix[x, y, z] = matrix[x, y, z] - step * (count + 1);
+                
+                // int temp = matrix[x, y, z];
+                // if (matrix[x, y, z] + step < maxValue)
+                // {
+                //     matrix[x, y, z] = temp + step;
+                //     count++;
+                // }
+                // else matrix[x, y, z] = temp - step * (count + 1);
             }
         }
 
