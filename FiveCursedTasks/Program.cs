@@ -29,8 +29,6 @@ PrintMatrix(matrixB);
 PrintMatrix(MultiMatrix(matrixA, matrixB));
 int[,,] matrixC = Get3DMatrix(2, 2, 2, 10, 99);
 Print3DMatrix(matrixC);
-int[,] matrixD = GetRandomMatrix(4, 4, 1, 16);
-PrintMatrix(matrixD);
 Console.WriteLine("Спиральный квадрат");
 PrintMatrix(SpiralFourMatrix(4, 4));
 
