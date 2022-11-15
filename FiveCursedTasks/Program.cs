@@ -6,18 +6,22 @@
 // строку с наименьшей суммой элементов.
 // 3) Задайте две матрицы. Напишите программу,
 // которая будет находить произведение двух матриц.
+// 4) Сформируйте трёхмерный массив из неповторяющихся
+// двузначных чисел. Напишите программу, которая будет
+// построчно выводить массив, добавляя индексы каждого элемента.
 
-int[,] matrixA = GetRandomMatrix(3, 3, -10, 10);
+int[,] matrixA = GetRandomMatrix(4, 3, -10, 10);
 PrintMatrix(matrixA);
 SortMatrix(matrixA);
 PrintMatrix(matrixA);
 int min = GetMinSum(matrixA);
 MinRow(matrixA);
-int[,] matrixB = GetRandomMatrix(3, 3, -10, 10);
+int[,] matrixB = GetRandomMatrix(3, 4, -10, 10);
 Console.WriteLine("Умножить на матрицу");
 PrintMatrix(matrixB);
-// PrintMatrix(MultiMatrix(matrixA, matrixB));
-PrintMatrix(TestMult(matrixA, matrixB));
+PrintMatrix(MultiMatrix(matrixA, matrixB));
+int[,,] matrixC = GetUnique3DMatrix(3, 3, 3, -10, 10);
+Print3DMatrix(matrixC);
 
 
 
@@ -109,7 +113,7 @@ void MinRow(int[,] matr)
 
 
 
-int[,] TestMult(int[,] matr1, int[,] matr2)
+int[,] MultiMatrix(int[,] matr1, int[,] matr2)
 
 {
     Console.WriteLine("Произведение матриц");
@@ -127,19 +131,59 @@ int[,] TestMult(int[,] matr1, int[,] matr2)
             for (j = 0; j < matr1.GetLength(1); j++)
             {
                 mult = matr1[i, j] * matr2[m, n];
-                Console.WriteLine($"Вот {matr1[i, j]} * {matr2[m, n]} = {mult}");
                 if (m < matr2.GetLength(1)) m++;
-
                 sum = sum + mult;
             }
             if (n < matr2.GetLength(1)) n++;
 
             matr3[x, y] = sum;
-            Console.Write($"{matr3[x, y]} | ");
-            Console.WriteLine();
         }
         if (i < matr1.GetLength(0)) i++;
 
     }
     return matr3;
+}
+
+
+int[,,] GetUnique3DMatrix(int rows, int columns, int spaces, int minValue, int maxValue)
+{
+    Console.WriteLine("Трёхмерный массив");
+    Console.WriteLine();
+    int[,,] matrix = new int[rows, columns, spaces];
+    for (int x = 0; x < rows; x++)
+    {
+        for (int y = 0; y < columns; y++)
+        {
+            for (int z = 0; z < spaces; z++)
+            {
+                matrix[x, y, z] = new Random().Next(minValue, maxValue + 1);
+                for (int k = z + 1; k < spaces; k++)
+                {
+                    if (matrix[x, y, z] == matrix[x, y, k])
+                    {
+                        matrix[x, y, k] = new Random().Next(minValue, maxValue + 1);
+                    }
+                }
+            }
+        }
+    }
+    return matrix;
+}
+
+
+void Print3DMatrix(int[,,] matr)
+{
+    for (int x = 0; x < matr.GetLength(0); x++)
+    {
+        for (int y = 0; y < matr.GetLength(1); y++)
+        {
+            for (int z = 0; z < matr.GetLength(2); z++)
+            {
+                Console.Write($"{matr[x, y , z]} | ");
+            }
+            Console.WriteLine();
+        }
+
+    }
+    Console.WriteLine();
 }
