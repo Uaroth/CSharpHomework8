@@ -20,10 +20,10 @@ int[,] matrixB = GetRandomMatrix(3, 4, -10, 10);
 Console.WriteLine("Умножить на матрицу");
 PrintMatrix(matrixB);
 PrintMatrix(MultiMatrix(matrixA, matrixB));
-int[,,] matrixC = Get3DMatrix(3, 3, 3, 0, 30);
+int[,,] matrixC = Get3DMatrix(2, 2, 2, 0, 30);
 Print3DMatrix(matrixC);
-matrixC = SortUniqueMatrix(matrixC);
-Print3DMatrix(matrixC);
+// matrixC = SortUniqueMatrix(matrixC);
+// Print3DMatrix(matrixC);
 
 
 
@@ -166,40 +166,36 @@ int[,,] Get3DMatrix(int rows, int columns, int spaces, int minValue, int maxValu
 }
 
 
-int[,,] SortUniqueMatrix(int[,,] matr)
-{
-    int x = 0;
-    int y = 0;
-    int z = 0;
-    int temp = matr[x, y, z];
+// int[,,] SortUniqueMatrix(int[,,] matr)
+// {
 
-    for (; x < matr.GetLength(0); x++)
-    {
-        
-        y= 0;
-        
-        for (; y < matr.GetLength(1); y++)
-        {
-            z = 0;
-            for (; z < matr.GetLength(2); z++)
-            {
-                int k = 0;
-                for (; k < matr.GetLength(2); k++)
-                {
-                    if (temp == matr[x, y, k])
-                    {
-                        matr[x, y, k] = new Random().Next(0, 31);
-                    }
-                    Console.WriteLine($"Сравнивалось {temp} с {matr[x, y, k]}");
-                }
+//     int d = 0;
+//     int t = 0;
+//     int p = 0;
 
+//     int temp = matr[d, t, p];
 
-                
-            }
-        }
-    }
-    return matr;
-}
+//     for (int x = 0; x < matr.GetLength(0); x++)
+//     {
+//         for (int y = 0; y < matr.GetLength(1); y++)
+//         {
+//             for (int z = 0; z < matr.GetLength(2); z++)
+//             {
+//                 for (int k = z+1; k < matr.GetLength(2); k++)
+//                 {
+//                     if (temp == matr[x, y, k])
+//                     {
+//                         matr[x, y, k] = new Random().Next(0, 31);
+//                     }
+//                     Console.WriteLine($"Сравнивалось {temp} с {matr[x, y, k]}");
+
+//                 }               
+
+//             }
+//         }
+//     }
+//     return matr;
+// }
 
 
 
@@ -211,7 +207,7 @@ void Print3DMatrix(int[,,] matr)
         {
             for (int z = 0; z < matr.GetLength(2); z++)
             {
-                Console.Write($"{matr[x, y, z]} | ");
+                Console.Write($"{matr[x, y, z]} ({x},{y},{z}) | ");
             }
             Console.WriteLine();
         }
@@ -219,3 +215,4 @@ void Print3DMatrix(int[,,] matr)
     }
     Console.WriteLine();
 }
+
