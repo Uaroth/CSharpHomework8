@@ -107,30 +107,6 @@ void MinRow(int[,] matr)
     }
 }
 
-int[,] MultiMatrix(int[,] matr1, int[,] matr2)
-
-{
-    Console.WriteLine("Произведение матриц");
-    int[,] matr3 = new int[matr1.GetLength(0), matr2.GetLength(1)];
-    int mult = 0;
-    for (int i = 0; i < matr1.GetLength(0); i++)
-    {
-        for (int j = 0; j < matr1.GetLength(1); j++)
-        {
-            for (int n = 0; n < matr2.GetLength(1); n++)
-            {
-                for (int m = 0; m < matr2.GetLength(0); m++)
-                {
-                    mult = matr1[i, j] * matr2[m, n];
-                    Console.WriteLine($"Проверим сумму произведений строки{mult}");
-                }
-
-            }
-        }
-    }
-    return matr3;
-}
-
 
 
 int[,] TestMult(int[,] matr1, int[,] matr2)
@@ -140,25 +116,28 @@ int[,] TestMult(int[,] matr1, int[,] matr2)
     int[,] matr3 = new int[matr1.GetLength(0), matr2.GetLength(1)];
     int mult = 0;
     int i = 0;
-    int j = 0;
     int m = 0;
     int n = 0;
     int sum = 0;
-    for (int x = 0; x < length; x++)
+    for (int x = 0; x < matr1.GetLength(0); x++)
     {
-        for (int y = 0; y < length; y++)
+        for (int y = 0; y < matr2.GetLength(1); y++)
         {
-            while (j < matr1.GetLength(1))
+            m=0;
+            sum=0;
+            for (int j = 0; j < matr1.GetLength(1); j++)
             {
                 mult = matr1[i, j] * matr2[m, n];
-                j++;
-                m++;
+                Console.WriteLine($"Вот {matr1[i, j]} * {matr2[m, n]} = {mult}");
+                if (m < matr2.GetLength(1)-1) m++;
                 sum = sum + mult;
             }
+            if(i<matr1.GetLength(0)) i++;
+            if(n<matr2.GetLength(1))n++;
             matr3[x, y] = sum;
+            Console.Write($"{matr3[x, y]} | ");
+            Console.WriteLine();
         }
     }
     return matr3;
 }
-
-// matr3 [i,j] = (matr1 [i,j] * matr2 [i,j]) + (matr1[i,j+1] * matr2 [i+1,j])
