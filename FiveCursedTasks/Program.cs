@@ -115,29 +115,30 @@ int[,] TestMult(int[,] matr1, int[,] matr2)
     Console.WriteLine("Произведение матриц");
     int[,] matr3 = new int[matr1.GetLength(0), matr2.GetLength(1)];
     int mult = 0;
-    int i = 0;
-    int m = 0;
-    int n = 0;
-    int sum = 0;
-    for (int x = 0; x < matr1.GetLength(0); x++)
+    for (int x = 0; x < matr3.GetLength(0); x++)
     {
-        for (int y = 0; y < matr2.GetLength(1); y++)
+        int i = 0;
+        int n = 0;
+        for (int y = 0; y < matr3.GetLength(1); y++)
         {
-            m=0;
-            sum=0;
+            int m = 0;
+            int sum = 0;
             for (int j = 0; j < matr1.GetLength(1); j++)
             {
                 mult = matr1[i, j] * matr2[m, n];
                 Console.WriteLine($"Вот {matr1[i, j]} * {matr2[m, n]} = {mult}");
-                if (m < matr2.GetLength(1)-1) m++;
+                if (m < matr2.GetLength(1)) m++;
                 sum = sum + mult;
             }
-            if(i<matr1.GetLength(0)) i++;
-            if(n<matr2.GetLength(1))n++;
+            if (i < matr1.GetLength(0)) i++;
+            if (n < matr2.GetLength(1)) n++;
+            
             matr3[x, y] = sum;
             Console.Write($"{matr3[x, y]} | ");
             Console.WriteLine();
         }
+
+        
     }
     return matr3;
 }
