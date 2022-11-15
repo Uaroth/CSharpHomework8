@@ -20,7 +20,9 @@ int[,] matrixB = GetRandomMatrix(3, 4, -10, 10);
 Console.WriteLine("Умножить на матрицу");
 PrintMatrix(matrixB);
 PrintMatrix(MultiMatrix(matrixA, matrixB));
-int[,,] matrixC = GetUnique3DMatrix(3, 3, 3, -10, 10);
+int[,,] matrixC = Get3DMatrix(3, 3, 3, 0, 30);
+Print3DMatrix(matrixC);
+matrixC = SortUniqueMatrix(matrixC);
 Print3DMatrix(matrixC);
 
 
@@ -145,7 +147,7 @@ int[,] MultiMatrix(int[,] matr1, int[,] matr2)
 }
 
 
-int[,,] GetUnique3DMatrix(int rows, int columns, int spaces, int minValue, int maxValue)
+int[,,] Get3DMatrix(int rows, int columns, int spaces, int minValue, int maxValue)
 {
     Console.WriteLine("Трёхмерный массив");
     Console.WriteLine();
@@ -159,9 +161,11 @@ int[,,] GetUnique3DMatrix(int rows, int columns, int spaces, int minValue, int m
                 matrix[x, y, z] = new Random().Next(minValue, maxValue + 1);
                 for (int k = z + 1; k < spaces; k++)
                 {
+
                     if (matrix[x, y, z] == matrix[x, y, k])
                     {
                         matrix[x, y, k] = new Random().Next(minValue, maxValue + 1);
+                        k--;
                     }
                 }
             }
@@ -169,6 +173,31 @@ int[,,] GetUnique3DMatrix(int rows, int columns, int spaces, int minValue, int m
     }
     return matrix;
 }
+
+int[,,] SortUniqueMatrix(int[,,] matr)
+{
+
+    for (int x = 0; x < matr.GetLength(0); x++)
+    {
+        for (int y = 0; y < matr.GetLength(1); y++)
+        {
+            for (int z = 0; z < matr.GetLength(2); z++)
+            {
+                for (int k = z + 1; k < matr.GetLength(2); k++)
+                {
+
+                    if (matr[x, y, z] == matr[x, y, k])
+                    {
+                        matr[x, y, k] = new Random().Next(0, 31);
+                        
+                    }
+                }
+            }
+        }
+    }
+    return matr;
+}
+
 
 
 void Print3DMatrix(int[,,] matr)
@@ -179,7 +208,7 @@ void Print3DMatrix(int[,,] matr)
         {
             for (int z = 0; z < matr.GetLength(2); z++)
             {
-                Console.Write($"{matr[x, y , z]} | ");
+                Console.Write($"{matr[x, y, z]} | ");
             }
             Console.WriteLine();
         }
