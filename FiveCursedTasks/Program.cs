@@ -20,10 +20,9 @@ int[,] matrixB = GetRandomMatrix(3, 4, -10, 10);
 Console.WriteLine("Умножить на матрицу");
 PrintMatrix(matrixB);
 PrintMatrix(MultiMatrix(matrixA, matrixB));
-int[,,] matrixC = Get3DMatrix(3, 3, 2, 10, 100);
+int[,,] matrixC = Get3DMatrix(3, 3, 3, 10, 99, 5);
 Print3DMatrix(matrixC);
-matrixC = SortUniqueMatrix(matrixC);
-Print3DMatrix(matrixC);
+
 
 
 
@@ -147,57 +146,31 @@ int[,] MultiMatrix(int[,] matr1, int[,] matr2)
 }
 
 
-int[,,] Get3DMatrix(int rows, int columns, int spaces, int minValue, int maxValue)
+int[,,] Get3DMatrix(int rows, int columns, int spaces, int minValue, int maxValue, int step)
 {
     Console.WriteLine("Трёхмерный массив");
     Console.WriteLine();
     int[,,] matrix = new int[rows, columns, spaces];
+    int count = 1;
+    matrix[0, 0, 0] = new Random().Next(minValue, maxValue + 1);
+
     for (int x = 0; x < rows; x++)
     {
         for (int y = 0; y < columns; y++)
         {
             for (int z = 0; z < spaces; z++)
             {
-                matrix[x, y, z] = new Random().Next(minValue, maxValue + 1);
+                if (matrix[x, y, z] + step < maxValue)
+                {
+                    matrix[x, y, z] = matrix[x, y, z] + step;
+                    count++;
+                }
+                else matrix[x, y, z] = matrix[x, y, z] - step * (count + 1);
             }
         }
+
     }
     return matrix;
-}
-
-
-int[,,] SortUniqueMatrix(int[,,] matr)
-{
-
-    int d = 0;
-    int t = 0;
-    int p = 0;
-    int temp = matr[d, t, p];
-    while (temp < matr[matr.GetLength(0) - 1, matr.GetLength(1) - 1, matr.GetLength(2) - 1])
-    { 
-        Console.WriteLine($"Temp {temp}");
-        for (int x = 0; x < matr.GetLength(0); x++)
-        {
-
-            for (int y = 0; y < matr.GetLength(1); y++)
-            {
-
-                for (int z = 0; z < matr.GetLength(2); z++)
-                {
-                    if (temp == matr[x, y, z])
-                    {
-                        matr[x, y, z] = new Random().Next(10, 100);
-                    }
-                    p++;
-                }
-
-
-            }
-
-        }
-    }
-
-    return matr;
 }
 
 
@@ -218,4 +191,5 @@ void Print3DMatrix(int[,,] matr)
     }
     Console.WriteLine();
 }
+
 
