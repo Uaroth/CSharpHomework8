@@ -7,16 +7,16 @@
 // 3) Задайте две матрицы. Напишите программу,
 // которая будет находить произведение двух матриц.
 
-int[,] matrixA = GetRandomMatrix(2, 2, -10, 10);
+int[,] matrixA = GetRandomMatrix(3, 3, -10, 10);
 PrintMatrix(matrixA);
 SortMatrix(matrixA);
 PrintMatrix(matrixA);
 int min = GetMinSum(matrixA);
 MinRow(matrixA);
-int[,] matrixB = GetRandomMatrix(2, 2, -10, 10);
+int[,] matrixB = GetRandomMatrix(3, 3, -10, 10);
 Console.WriteLine("Умножить на матрицу");
 PrintMatrix(matrixB);
-PrintMatrix(MultiMatrix(matrixA, matrixB));
+// PrintMatrix(MultiMatrix(matrixA, matrixB));
 PrintMatrix(TestMult(matrixA, matrixB));
 
 
@@ -112,44 +112,53 @@ int[,] MultiMatrix(int[,] matr1, int[,] matr2)
 {
     Console.WriteLine("Произведение матриц");
     int[,] matr3 = new int[matr1.GetLength(0), matr2.GetLength(1)];
+    int mult = 0;
     for (int i = 0; i < matr1.GetLength(0); i++)
     {
-        for (int k = 0; k < matr2.GetLength(1); k++)
+        for (int j = 0; j < matr1.GetLength(1); j++)
         {
-            int mult = 0;
-            int sum = 0;
-            for (int j = 0; j < matr1.GetLength(1)-1; j++)
+            for (int n = 0; n < matr2.GetLength(1); n++)
             {
-                for (int h = 0; h < matr2.GetLength(0)-1; h++)
+                for (int m = 0; m < matr2.GetLength(0); m++)
                 {
-                    mult = matr1[i, j++] * matr2[h++, k];
+                    mult = matr1[i, j] * matr2[m, n];
+                    Console.WriteLine($"Проверим сумму произведений строки{mult}");
                 }
-                sum = sum + mult;
+
             }
-            matr3[i, k] = sum;
         }
     }
     return matr3;
 }
+
+
 
 int[,] TestMult(int[,] matr1, int[,] matr2)
+
 {
-    Console.WriteLine();
-    Console.WriteLine("Тест показал");
+    Console.WriteLine("Произведение матриц");
     int[,] matr3 = new int[matr1.GetLength(0), matr2.GetLength(1)];
-    for (int i = 0; i < matr1.GetLength(0); i++)
+    int mult = 0;
+    int i = 0;
+    int j = 0;
+    int m = 0;
+    int n = 0;
+    int sum = 0;
+    for (int x = 0; x < length; x++)
     {
-        for (int j = 0; j < matr2.GetLength(1); j++)
+        for (int y = 0; y < length; y++)
         {
-            int mult = 0;
-            for (int k = 0; k < matr2.GetLength(1); k++)
+            while (j < matr1.GetLength(1))
             {
-                mult = matr1[i, j + i] * matr2[i + j, j];
+                mult = matr1[i, j] * matr2[m, n];
+                j++;
+                m++;
+                sum = sum + mult;
             }
-            matr3[i, j] = matr3[i, j] + mult;
+            matr3[x, y] = sum;
         }
     }
     return matr3;
 }
 
-// matr3 [i,j] = (matr1 [i,j] * matr2 [i,j]) +
+// matr3 [i,j] = (matr1 [i,j] * matr2 [i,j]) + (matr1[i,j+1] * matr2 [i+1,j])
