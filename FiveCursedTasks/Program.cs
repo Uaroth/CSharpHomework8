@@ -32,7 +32,7 @@ Print3DMatrix(matrixC);
 int[,] matrixD = GetRandomMatrix(4, 4, 1, 16);
 PrintMatrix(matrixD);
 Console.WriteLine("Спиральный квадрат");
-PrintMatrix(SpiralFourMatrix(matrixD));
+PrintMatrix(SpiralFourMatrix(4, 4));
 
 
 
@@ -81,16 +81,24 @@ int[,] SortMatrix(int[,] matr)
 
 int[,] SpiralFourMatrix(int rows, int columns)
 {
-    int[,] matr = new int[4, 4];
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < columns; j++)
-        {
-            
-        }
-    }
+    int[,] matr = new int[rows, columns];
+    int i = 0;
+    int j = 0;
+
+    int value = 1;
+
+    int k = 0;
+    do { matr[i, j++] = value++; } while (++k < rows - 1);
+    for (k = 0; k < rows - 1; k++) matr[i++, j] = value++;
+    for (k = 0; k < rows - 1; k++) matr[i, j--] = value++;
+    for (k = 0; k < rows - 1; k++) matr[i--, j] = value++;
+    
+
+    ++i; ++j;
+
     return matr;
 }
+
 
 void PrintMatrix(int[,] matr)
 {
