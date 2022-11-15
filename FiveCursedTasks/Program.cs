@@ -9,19 +9,23 @@
 // 4) Сформируйте трёхмерный массив из неповторяющихся
 // двузначных чисел. Напишите программу, которая будет
 // построчно выводить массив, добавляя индексы каждого элемента.
+// 5) Напишите программу, которая заполнит спирально
+// массив 4 на 4.
 
-int[,] matrixA = GetRandomMatrix(4, 3, -10, 10);
+int[,] matrixA = GetRandomMatrix(3, 4, -10, 10);
 PrintMatrix(matrixA);
 SortMatrix(matrixA);
 PrintMatrix(matrixA);
 int min = GetMinSum(matrixA);
 MinRow(matrixA);
-int[,] matrixB = GetRandomMatrix(3, 4, -10, 10);
+int[,] matrixB = GetRandomMatrix(4, 3, -10, 10);
 Console.WriteLine("Умножить на матрицу");
 PrintMatrix(matrixB);
 PrintMatrix(MultiMatrix(matrixA, matrixB));
-int[,,] matrixC = Get3DMatrix(3, 3, 3, 10, 99, 5);
+int[,,] matrixC = Get3DMatrix(2, 2, 2, 10, 99);
 Print3DMatrix(matrixC);
+int [,] matrixD = GetRandomMatrix(4, 4, 1, 16);
+PrintMatrix(matrixD);
 
 
 
@@ -62,6 +66,60 @@ int[,] SortMatrix(int[,] matr)
         }
     }
     return matr;
+}
+
+
+
+
+
+void SpiralFourMatrix(int[,] matr) // Примитивизм и позор, но с учётом наступающего дэдлайна
+{                                  // наступающего дэдлайна - грамотное распоряжение временем.
+    matr = SortMatrix(matr);       // Сутками разбирался с произведением и трёхмерным массивом,
+                                   // тут ничего не успеваю придумать, зато работает)
+    int temp = matr[1,3];
+    matr[1,3] = matr[1,0];
+    matr [1,0] = temp;
+
+    temp = matr[2,3];
+    matr[2,3] = matr[1,1];
+    matr [1,1] = temp;
+
+    temp = matr[3,3];
+    matr[3,3] = matr[1,2];
+    matr [1,2] = temp;
+
+    temp = matr[1,0];
+    matr[1,0] = matr[3,2];
+    matr [3,2] = temp;
+
+    temp = matr[2,0];
+    matr[2,0] = matr[3,1];
+    matr [3,1] = temp;
+
+    temp = matr[2,1];
+    matr[2,1] = matr[3,0];
+    matr [3,0] = temp;
+
+    temp = matr[2,2];
+    matr[2,2] = matr[2,0];
+    matr [2,0] = temp;
+
+    temp = matr[1,1];
+    matr[1,1] = matr[1,0];
+    matr [1,0] = temp;
+
+    temp = matr[2,1];
+    matr[2,1] = matr[1,1];
+    matr [1,1] = temp; //13
+
+    temp = matr[2,2];
+    matr[2,2] = matr[1,2];
+    matr [1,2] = temp;
+
+    temp = matr[2,1];
+    matr[2,1] = matr[2,2];
+    matr [2,2] = temp;
+
 }
 
 
@@ -106,7 +164,7 @@ void MinRow(int[,] matr)
             sum = sum + matr[i, j];
             if (sum == min)
             {
-                Console.WriteLine($"Минимальная строка - {i + 1} .");
+                Console.WriteLine($"Минимальная строка - {i} .");
             }
         }
     }
@@ -146,34 +204,20 @@ int[,] MultiMatrix(int[,] matr1, int[,] matr2)
 }
 
 
-int[,,] Get3DMatrix(int rows, int columns, int spaces, int minValue, int maxValue, int step)
+int[,,] Get3DMatrix(int rows, int columns, int spaces, int minValue, int maxValue)
 {
     Console.WriteLine("Трёхмерный массив");
     Console.WriteLine();
     int[,,] matrix = new int[rows, columns, spaces];
-    int count = 1;
-    
-    int x = 0;
-    int y = 0;
-    int z = 0;
-    matrix[x, y, z] = new Random().Next(minValue, maxValue + 1);
-    int temp = matrix[x, y, z];
-    int sum = 0;
-    for (; x < rows; x++)
+    for (int x = 0; x < rows; x++)
     {
-        for (; y < columns; y++)
+        for (int y = 0; y < columns; y++)
         {
-            matrix[x, y, z] = temp+step;
-            for (; z < spaces; z++)
+
+            for (int z = 0; z < spaces; z++)
             {
-                
-                // int temp = matrix[x, y, z];
-                // if (matrix[x, y, z] + step < maxValue)
-                // {
-                //     matrix[x, y, z] = temp + step;
-                //     count++;
-                // }
-                // else matrix[x, y, z] = temp - step * (count + 1);
+                matrix[x, y, z] = new Random().Next(minValue, maxValue + 1);
+
             }
         }
 
