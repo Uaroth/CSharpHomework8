@@ -159,39 +159,42 @@ int[,,] Get3DMatrix(int rows, int columns, int spaces, int minValue, int maxValu
             for (int z = 0; z < spaces; z++)
             {
                 matrix[x, y, z] = new Random().Next(minValue, maxValue + 1);
-                for (int k = z + 1; k < spaces; k++)
-                {
-
-                    if (matrix[x, y, z] == matrix[x, y, k])
-                    {
-                        matrix[x, y, k] = new Random().Next(minValue, maxValue + 1);
-                        k--;
-                    }
-                }
             }
         }
     }
     return matrix;
 }
 
+
 int[,,] SortUniqueMatrix(int[,,] matr)
 {
+    int x = 0;
+    int y = 0;
+    int z = 0;
+    int temp = matr[x, y, z];
 
-    for (int x = 0; x < matr.GetLength(0); x++)
+    for (; x < matr.GetLength(0); x++)
     {
-        for (int y = 0; y < matr.GetLength(1); y++)
+        
+        y= 0;
+        
+        for (; y < matr.GetLength(1); y++)
         {
-            for (int z = 0; z < matr.GetLength(2); z++)
+            z = 0;
+            for (; z < matr.GetLength(2); z++)
             {
-                for (int k = z + 1; k < matr.GetLength(2); k++)
+                int k = 0;
+                for (; k < matr.GetLength(2); k++)
                 {
-
-                    if (matr[x, y, z] == matr[x, y, k])
+                    if (temp == matr[x, y, k])
                     {
                         matr[x, y, k] = new Random().Next(0, 31);
-                        
                     }
+                    Console.WriteLine($"Сравнивалось {temp} с {matr[x, y, k]}");
                 }
+
+
+                
             }
         }
     }
